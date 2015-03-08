@@ -177,6 +177,44 @@ function ƒ(str){ return function(d){ return typeof(str) == 'undefined' ? d : d[
           return c
         }
 
+        d3.attachTooltip = function(sel, fieldFns){
+          sel 
+              .on('mouseover', ttDisplay)
+              .on('mousemove', ttMove)
+              .on('mouseout',  ttHide)
+
+          function ttDisplay(d){
+            d3.select('.tooltip')
+                .classed('tooltip-hidden', false);
+                .html('')
+              .appendData('div', fieldFns || d3.keys(d).map(ƒ))
+                .text(function(fn){ return fn(d) })
+
+            d3.select(this).classed('tooltipped', true)
+          }
+
+          function ttMove(d){
+            var tt = d3.select('.tooltip')
+            if (!tt.size()) return
+            var e = d3.event,
+              x = e.clientX,
+              y = e.clientY,
+              doctop = (window.scrollY)? window.scrollY : (document.documentElement && document.documentElement.scrollTop)? document.documentElement.scrollTop : document.body.scrollTop;
+              n = tt.node(),
+              nBB = n.getBoundingClientRect()
+
+            tt.style('top', (y+doctop-nBB.height-18)+"px");
+            tt.style('left', Math.min(Math.max(0, (x-nBB.width/2)), window.innerWidth - nBB.width)+"px");
+          }
+
+          function ttHide(d){
+            d3.select('.tooltip').classed('tooltip-hidden', true);
+
+            d3.selectAll('.tooltipped').classed('tooltipped', false)
+          }
+        }
+
+
 
         d3.compose = function(){
           var functions = arguments 

@@ -51,6 +51,7 @@ svg.append(g).translate([margin.left, margin.top]);
 tick.translate(function(d) { return  [0, y(d)]; });
 ```
 
+<<<<<<< HEAD
 ### ƒ
 
 `ƒ` takes a string and returns a function that takes an object and returns whatever property the string is named. This clears away much of verbose `function(d){ return ... }` syntax in ECMAScript 5:
@@ -76,4 +77,22 @@ Instead of
 
 ```js
 circles.attrC('cx', function(d){ return x(d.price); });
+```
+
+#### selection.appendData
+
+Instead of making an empty selection, binding a data, taking the enter selection and appending elements as seperate steps:
+
+```js
+svg.selectAll('circle')
+    .data(data)
+    .enter()
+    .append('circle')    
+```
+
+Use `appendData`:
+
+
+```js
+svg.appendData('circle', data)
 ```

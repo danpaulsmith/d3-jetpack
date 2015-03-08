@@ -60,6 +60,12 @@ function ƒ(str){ return function(d){ return typeof(str) == 'undefined' ? d : d[
         }
         d3.transition.prototype.attrC = function(name){
             return this.attr(name, compose.apply(null, [].slice.call(arguments, 1)))
+
+        d3.selection.prototype.appendData = function(name, data){
+            return this.selectAll('#zzzzzz')
+                    .data(data)
+                    .enter()
+                    .append(name)
         }
 
 
@@ -130,6 +136,7 @@ function ƒ(str){ return function(d){ return typeof(str) == 'undefined' ? d : d[
             };
         };
 
+<<<<<<< HEAD
         function compose(){
           var functions = arguments 
           return function(d){
@@ -139,6 +146,8 @@ function ƒ(str){ return function(d){ return typeof(str) == 'undefined' ? d : d[
           }
         }
 
+=======
+>>>>>>> appendData
     }
 
     if (typeof d3 === 'object' && d3.version) jetpack(d3);

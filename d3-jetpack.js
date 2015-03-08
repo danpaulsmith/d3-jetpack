@@ -136,7 +136,6 @@ function ƒ(str){ return function(d){ return typeof(str) == 'undefined' ? d : d[
             };
         };
 
-<<<<<<< HEAD
         function compose(){
           var functions = arguments 
           return function(d){
@@ -145,9 +144,6 @@ function ƒ(str){ return function(d){ return typeof(str) == 'undefined' ? d : d[
             return d
           }
         }
-
-=======
->>>>>>> appendData
     }
 
     if (typeof d3 === 'object' && d3.version) jetpack(d3);

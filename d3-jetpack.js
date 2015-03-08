@@ -50,16 +50,17 @@ function ƒ(str){ return function(d){ return typeof(str) == 'undefined' ? d : d[
         };
 
         d3.selection.prototype.styleC = function(name){
-            return this.style(name, compose.apply(null, [].slice.call(arguments, 1)))
+            return this.style(name, d3.compose.apply(null, [].slice.call(arguments, 1)))
         }
         d3.selection.prototype.attrC = function(name){
-            return this.attr(name, compose.apply(null, [].slice.call(arguments, 1)))
+            return this.attr(name, d3.compose.apply(null, [].slice.call(arguments, 1)))
         }
         d3.transition.prototype.styleC = function(name){
-            return this.style(name, compose.apply(null, [].slice.call(arguments, 1)))
+            return this.style(name, d3.compose.apply(null, [].slice.call(arguments, 1)))
         }
         d3.transition.prototype.attrC = function(name){
-            return this.attr(name, compose.apply(null, [].slice.call(arguments, 1)))
+            return this.attr(name, d3.compose.apply(null, [].slice.call(arguments, 1)))
+        }
 
         d3.selection.prototype.appendData = function(name, data){
             return this.selectAll('#zzzzzz')
@@ -185,9 +186,9 @@ function ƒ(str){ return function(d){ return typeof(str) == 'undefined' ? d : d[
 
           function ttDisplay(d){
             d3.select('.tooltip')
-                .classed('tooltip-hidden', false);
+                .classed('tooltip-hidden', false)
                 .html('')
-              .appendData('div', fieldFns || d3.keys(d).map(ƒ))
+              .appendData('div', fieldFns || d3.keys(d).map(function(str){ return function(d){ return str + ': ' + d[str] } }))
                 .text(function(fn){ return fn(d) })
 
             d3.select(this).classed('tooltipped', true)
@@ -214,8 +215,6 @@ function ƒ(str){ return function(d){ return typeof(str) == 'undefined' ? d : d[
           }
         }
 
-
-
         d3.compose = function(){
           var functions = arguments 
           return function(d){
@@ -224,6 +223,7 @@ function ƒ(str){ return function(d){ return typeof(str) == 'undefined' ? d : d[
             return d
           }
         }
+
     }
 
     if (typeof d3 === 'object' && d3.version) jetpack(d3);

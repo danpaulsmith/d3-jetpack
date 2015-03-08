@@ -51,7 +51,6 @@ svg.append(g).translate([margin.left, margin.top]);
 tick.translate(function(d) { return  [0, y(d)]; });
 ```
 
-<<<<<<< HEAD
 ### ƒ
 
 `ƒ` takes a string and returns a function that takes an object and returns whatever property the string is named. This clears away much of verbose `function(d){ return ... }` syntax in ECMAScript 5:

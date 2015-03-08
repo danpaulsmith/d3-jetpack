@@ -136,7 +136,49 @@ function ƒ(str){ return function(d){ return typeof(str) == 'undefined' ? d : d[
             };
         };
 
-        function compose(){
+        d3.conventions = function(c){
+          c = c || {}
+
+          c.width  = c.width  || 900
+          c.height = c.height || 500
+
+          c.margin = c.margin || {top: 20, right: 20, bottom: 20, left: 25}
+
+          c.parentSel = c.parentSel || d3.select('body')
+
+          c.svg = c.svg || c.parentSel.append("svg")
+              .attr("width", c.width + c.margin.left + c.margin.right)
+              .attr("height", c.height + c.margin.top + c.margin.bottom)
+            .append("g")
+              .attr("transform", "translate(" + c.margin.left + "," + c.margin.top + ")")
+
+          c.color   = c.color   || d3.scale.category10()
+          c.x       = c.x       || d3.scale.linear().range([0, c.width])
+          c.y       = c.y       || d3.scale.linear().range([c.height, 0])
+          c.rScale  = c.rScale  || d3.scale.sqrt().range([5, 20])
+          c.line    = c.line    || d3.svg.line()
+
+
+          c.xAxis = c.xAxis || d3.svg.axis().scale(c.x).orient("bottom");
+          c.yAxis = c.yAxis || d3.svg.axis().scale(c.y).orient("left")
+
+
+          c.drawAxis = function(){
+            c.svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + c.height + ")")
+                .call(c.xAxis);
+
+            c.svg.append("g")
+                .attr("class", "y axis")
+                .call(c.yAxis);
+          }
+          
+          return c
+        }
+
+
+        d3.compose = function(){
           var functions = arguments 
           return function(d){
             var i = functions.length

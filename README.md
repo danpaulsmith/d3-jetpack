@@ -51,7 +51,7 @@ svg.append(g).translate([margin.left, margin.top]);
 tick.translate(function(d) { return  [0, y(d)]; });
 ```
 
-### ƒ
+#### ƒ
 
 `ƒ` takes a string and returns a function that takes an object and returns whatever property the string is named. This clears away much of verbose `function(d){ return ... }` syntax in ECMAScript 5:
 
@@ -65,7 +65,7 @@ becomes
 x.domain(d3.extent(items, ƒ('price'));
 ```
 
-### attrC and styleC
+#### attrC and styleC
 `attrC` takes the name of an attribute and any number of functions, using the composition of the functions to map data bound to each element its attribute's value. 
 
 ```js
@@ -80,7 +80,7 @@ circles.attrC('cx', function(d){ return x(d.price); });
 
 #### selection.appendData
 
-Instead of making an empty selection, binding a data, taking the enter selection and appending elements as seperate steps:
+Instead of making an empty selection, binding a data, taking the enter selection and appending elements as separate steps:
 
 ```js
 svg.selectAll('circle')
@@ -95,3 +95,22 @@ Use `appendData`:
 ```js
 svg.appendData('circle', data)
 ```
+
+#### conventions
+`d3.conventions()` appends an `svg` element with a `g` element according to the  [margin convention](http://bl.ocks.org/mbostock/3019563) to the page and returns an object with the following properties:
+
+`width`, `height`, `margin`: size of the `svg` and its margins
+
+`parentSel`: `d3.selection` of the element the `svg` was appended to. Defaults to `d3.select("body")`, but like every other returned value, can be specified by passing in an object: `d3.conventions({parentSel: d3.select("#graph-container"), height: 1300})` appends an svg to `#graph-container` with a height of 1300.
+
+`svg`: `g` element translated to make room for the margins
+
+`x`: Linear scale with a range of `[0, width]`
+
+`y`: Linear scale with a range of `[height, 0]`
+
+`xAxis`: Axis with scale set to x and orient to "bottom"
+
+`yAxis`: Axis with scale set to y and orient to "left"
+
+`drawAxis`: Call to append axis group elements to the svg after configuring the domain. Not configurable.
